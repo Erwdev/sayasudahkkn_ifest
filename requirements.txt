@@ -1,0 +1,22 @@
+# Data handling and scientific computing
+numpy
+pandas
+scipy
+
+# Machine learning and text features
+scikit-learn
+joblib
+
+# NLP
+nltk
+spacy
+Sastrawi
+
+# Notebook and experiment utilities
+jupyter
+ipykernel
+tqdm
+
+# Exploration and visualization
+matplotlib
+seaborn
