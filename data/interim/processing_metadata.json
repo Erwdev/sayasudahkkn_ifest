@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-09-05T00:17:04",
+  "source": "../data/raw/penyisihan-dac-ifest-2026/train.csv",
+  "total_rows": 14397,
+  "columns_processed": [
+    "title",
+    "content"
+  ],
+  "variants": {
+    "A_light": {
+      "file": "../data/interim\\train_clean_a.csv",
+      "rows": 14397
+    },
+    "B_normalized": {
+      "file": "../data/interim\\train_clean_b.csv",
+      "rows": 14397
+    }
+  }
+}

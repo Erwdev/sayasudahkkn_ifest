@@ -1,0 +1,162 @@
+{
+  "run_id": "v1_2026-09-05",
+  "data": {
+    "n_train": 14397,
+    "n_test": 3603,
+    "label_distribution": {
+      "1": 12960,
+      "0": 1437
+    }
+  },
+  "preprocessing": {
+    "stopword_source": "Sastrawi",
+    "spacy_pipeline": "spacy.blank('id') + custom rules",
+    "limitations": [
+      "spaCy blank tidak punya POS/dependency parser native untuk id"
+    ]
+  },
+  "features": {
+    "feature_names": [
+      "lexical_0",
+      "lexical_1",
+      "lexical_2",
+      "lexical_3",
+      "lexical_4",
+      "entity_numeric_0",
+      "entity_numeric_1",
+      "entity_numeric_2",
+      "entity_numeric_3",
+      "entity_numeric_4",
+      "position_0",
+      "position_1",
+      "linguistic_0",
+      "linguistic_1",
+      "linguistic_2",
+      "linguistic_3",
+      "linguistic_4",
+      "relation_0",
+      "relation_1",
+      "relation_2",
+      "stylistic_0",
+      "stylistic_1",
+      "stylistic_2",
+      "tfidf_cosine_0",
+      "length_ratio_0",
+      "length_ratio_1",
+      "keyword_alignment_0",
+      "keyword_alignment_1",
+      "keyword_alignment_2",
+      "entity_overlap_0",
+      "entity_overlap_1",
+      "entity_overlap_2",
+      "entity_overlap_3",
+      "topic_coherence_0",
+      "topic_coherence_1",
+      "topic_coherence_2",
+      "feat_lsa_cosine_sim"
+    ],
+    "n_features": 37
+  },
+  "dummy_baseline": {
+    "pr_auc": 0.9001875390706398,
+    "mcc": 0.0,
+    "balanced_accuracy": 0.5,
+    "macro_f1": 0.47373615528018426
+  },
+  "noise_detection": {
+    "isolation_forest_contamination": 0.1,
+    "n_outliers_iso": 1440,
+    "n_confident_wrong": 1026,
+    "n_noise_combined": 60,
+    "noise_criteria": "Isolation Forest outlier AND confident-learning flag (AND logic)",
+    "sample_weight_clean": 1.0,
+    "sample_weight_noise": 0.3,
+    "confidence_threshold": 0.8,
+    "noise_indices": [
+      426,
+      597,
+      618,
+      723,
+      739,
+      1372,
+      1744,
+      2151,
+      2159,
+      3223,
+      3483,
+      3577,
+      4404,
+      4426,
+      4503,
+      5286,
+      5454,
+      5533,
+      5598,
+      5726
+    ]
+  },
+  "model_zoo": {
+    "models_trained": [
+      "LightGBM",
+      "XGBoost",
+      "RandomForest_balanced",
+      "LogisticRegression"
+    ],
+    "best_model": "RandomForest_balanced",
+    "comparison": {
+      "LightGBM": {
+        "macro_f1": 0.4737,
+        "mcc": 0.0,
+        "balanced_accuracy": 0.5,
+        "minority_f1": 0.0
+      },
+      "XGBoost": {
+        "macro_f1": 0.5508,
+        "mcc": 0.1376,
+        "balanced_accuracy": 0.5947,
+        "minority_f1": 0.2441
+      },
+      "RandomForest_balanced": {
+        "macro_f1": 0.5643,
+        "mcc": 0.1514,
+        "balanced_accuracy": 0.5984,
+        "minority_f1": 0.2535
+      },
+      "LogisticRegression": {
+        "macro_f1": 0.4974,
+        "mcc": 0.1537,
+        "balanced_accuracy": 0.6259,
+        "minority_f1": 0.2496
+      }
+    }
+  },
+  "calibration": {
+    "method": "logistic_regression_platt_scaling",
+    "calibration_set_size": 2159,
+    "brier_score_before": 0.1588,
+    "brier_score_after": 0.0868
+  },
+  "threshold_tuning": {
+    "best_threshold": 0.8400000000000001,
+    "macro_f1_at_best_threshold": 0.5733094105792073,
+    "sweep_range": [
+      0.01,
+      0.99
+    ]
+  },
+  "evaluation_oof": {
+    "pr_auc": 0.9429,
+    "mcc": 0.1469,
+    "balanced_accuracy": 0.5761,
+    "macro_f1": 0.5733,
+    "f1_minority": 0.2353,
+    "f1_majority": 0.9113,
+    "recall_minority": 0.245,
+    "recall_majority": 0.9072
+  },
+  "comparison_to_previous_attempt": {
+    "previous_macro_f1": 0.52,
+    "new_macro_f1": 0.5733094105792073,
+    "improvement": 0.05330941057920724
+  }
+}

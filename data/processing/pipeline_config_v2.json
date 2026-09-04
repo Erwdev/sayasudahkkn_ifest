@@ -1,0 +1,99 @@
+{
+  "pipeline_version": "v2",
+  "created_at": "2026-09-04T18:34:45.781692",
+  "features": {
+    "lexical_overlap": {
+      "jaccard": {
+        "variants": [
+          "clean_a",
+          "clean_b"
+        ],
+        "note": "candidate for pruning — lowest separability gap"
+      },
+      "overlap_coeff": {
+        "variants": [
+          "clean_a",
+          "clean_b"
+        ],
+        "note": "coverage dropped — mathematically identical when headline < article"
+      },
+      "dice_coefficient": {
+        "variants": [
+          "clean_a",
+          "clean_b"
+        ]
+      }
+    },
+    "semantic": {
+      "tfidf_cosine": {
+        "max_features": 10000,
+        "ngram_range": [
+          1,
+          2
+        ],
+        "source": "clean_b"
+      },
+      "lsa_cosine_sim": {
+        "n_components": 100,
+        "source": "clean_b",
+        "note": "renamed from lsa_cosine_sim_clean_b to feat_lsa_cosine_sim — was missed by feature_cols filter due to missing feat_ prefix"
+      }
+    },
+    "structural": {
+      "length_ratio": "word_len(headline) / word_len(article)",
+      "char_length_ratio": "char_len(headline) / char_len(article)"
+    }
+  },
+  "decisions": {
+    "raw_variant_dropped": "Never outperformed clean_a/clean_b in separability table (Cell 9)",
+    "coverage_merged": "feat_coverage_* dropped — identical to feat_overlap_coeff_* when headline < article (verified on this dataset)",
+    "lda_dropped": "LDA redundant with LSA (both topic modeling from TF-IDF), coarser granularity (20 topics vs 100 dims), higher compute cost, no clear separability advantage",
+    "semantic_source": "All semantic features (tfidf/lsa) computed from clean_b only — best variant per separability table"
+  },
+  "models_trained": [
+    "Logistic Regression (balanced)",
+    "Logistic Regression (no balance)",
+    "XGBoost (scale_pos_weight)",
+    "XGBoost (no balance)",
+    "Random Forest (balanced)",
+    "Random Forest (no balance)",
+    "Gradient Boosting",
+    "Linear SVM (balanced)"
+  ],
+  "best_model": "Random Forest (balanced)",
+  "best_threshold": 0.44999999999999996,
+  "validation_f1_macro": 0.5787303891627364,
+  "validation_auc_roc": 0.66109238085384,
+  "validation_f1_minority": 0.2702702702702703,
+  "imbalance_treatment": {
+    "logistic_regression": "class_weight='balanced'",
+    "xgboost": "scale_pos_weight=0.11",
+    "random_forest": "class_weight='balanced'",
+    "linear_svm": "class_weight='balanced'"
+  },
+  "n_features": 10,
+  "feature_columns": [
+    "feat_lsa_cosine_sim",
+    "feat_jaccard_clean_a",
+    "feat_overlap_coeff_clean_a",
+    "feat_dice_clean_a",
+    "feat_jaccard_clean_b",
+    "feat_overlap_coeff_clean_b",
+    "feat_dice_clean_b",
+    "feat_tfidf_cosine",
+    "feat_length_ratio",
+    "feat_char_length_ratio"
+  ],
+  "saved_objects": [
+    "tfidf_lsa_vectorizer.joblib (LSA TF-IDF)",
+    "svd_lsa_model.joblib (LSA SVD)",
+    "tfidf_vectorizer.joblib (TF-IDF cosine)"
+  ],
+  "libraries_used": [
+    "xgboost (XGBoost classifier)",
+    "sklearn (LR, RF, GB, SVM, TF-IDF, SVD)",
+    "Sastrawi (stopword removal)",
+    "nltk (stopwords list)",
+    "joblib (model persistence)"
+  ]
+}

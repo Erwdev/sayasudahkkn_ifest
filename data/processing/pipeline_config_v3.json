@@ -1,0 +1,127 @@
+{
+  "pipeline_version": "v3",
+  "created_at": "2026-09-05T01:35:50",
+  "features": {
+    "n_features": 37,
+    "feature_columns": [
+      "lexical_0",
+      "lexical_1",
+      "lexical_2",
+      "lexical_3",
+      "lexical_4",
+      "entity_numeric_0",
+      "entity_numeric_1",
+      "entity_numeric_2",
+      "entity_numeric_3",
+      "entity_numeric_4",
+      "position_0",
+      "position_1",
+      "linguistic_0",
+      "linguistic_1",
+      "linguistic_2",
+      "linguistic_3",
+      "linguistic_4",
+      "relation_0",
+      "relation_1",
+      "relation_2",
+      "stylistic_0",
+      "stylistic_1",
+      "stylistic_2",
+      "tfidf_cosine_0",
+      "length_ratio_0",
+      "length_ratio_1",
+      "keyword_alignment_0",
+      "keyword_alignment_1",
+      "keyword_alignment_2",
+      "entity_overlap_0",
+      "entity_overlap_1",
+      "entity_overlap_2",
+      "entity_overlap_3",
+      "topic_coherence_0",
+      "topic_coherence_1",
+      "topic_coherence_2",
+      "feat_lsa_cosine_sim"
+    ],
+    "feature_groups": {
+      "lexical": [
+        "lexical_0",
+        "lexical_1",
+        "lexical_2",
+        "lexical_3",
+        "lexical_4"
+      ],
+      "entity_numeric": [
+        "entity_numeric_0",
+        "entity_numeric_1",
+        "entity_numeric_2",
+        "entity_numeric_3",
+        "entity_numeric_4"
+      ],
+      "position": [
+        "position_0",
+        "position_1"
+      ],
+      "linguistic": [
+        "linguistic_0",
+        "linguistic_1",
+        "linguistic_2",
+        "linguistic_3",
+        "linguistic_4"
+      ],
+      "relation": [
+        "relation_0",
+        "relation_1",
+        "relation_2"
+      ],
+      "stylistic": [
+        "stylistic_0",
+        "stylistic_1",
+        "stylistic_2"
+      ],
+      "lsa": [
+        "feat_lsa_cosine_sim"
+      ]
+    },
+    "extraction_failure_rates": {
+      "note": "Track per-group failure rates in production run"
+    }
+  },
+  "noise_detection": {
+    "isolation_forest_contamination": 0.1,
+    "n_outliers_iso": 1440,
+    "n_confident_wrong": 1026,
+    "n_noise_combined": 60,
+    "noise_criteria": "Isolation Forest outlier AND confident-learning flag (AND logic)",
+    "sample_weight_clean": 1.0,
+    "sample_weight_noise": 0.3,
+    "confidence_threshold": 0.8,
+    "noise_indices": [
+      426,
+      597,
+      618,
+      723,
+      739,
+      1372,
+      1744,
+      2151,
+      2159,
+      3223,
+      3483,
+      3577,
+      4404,
+      4426,
+      4503,
+      5286,
+      5454,
+      5533,
+      5598,
+      5726
+    ]
+  },
+  "limitations": [
+    "spaCy blank('id') — tokenizer only, no POS/dependency parser native for Bahasa Indonesia",
+    "Relation features use heuristic SVO extraction, not true dependency parsing",
+    "Proxy NER based on capitalization, not true NER",
+    "Sentiment based on InSet lexicon (word-level matching)"
+  ]
+}

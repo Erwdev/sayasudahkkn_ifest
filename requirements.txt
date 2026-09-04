@@ -6,11 +6,15 @@ scipy
 # Machine learning and text features
 scikit-learn
 joblib
+xgboost
+lightgbm
+imblearn  # For SMOTE oversampling
+optuna    # For Bayesian hyperparameter optimization
 
 # NLP
 nltk
-spacy
 Sastrawi
+spacy 
 
 # Notebook and experiment utilities
 jupyter
@@ -20,3 +24,6 @@ tqdm
 # Exploration and visualization
 matplotlib
 seaborn
+wordcloud
+
+psutil
