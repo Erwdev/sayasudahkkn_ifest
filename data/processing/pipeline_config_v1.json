@@ -1,122 +1,63 @@
 {
   "pipeline_version": "v1",
-  "created_at": "2026-09-04T18:32:00.629863",
+  "created_at": "2026-09-05T00:17:52",
   "dataset": {
     "train_rows": 14397,
     "test_rows": 3603,
-    "columns_discovered": {
+    "columns": {
       "headline": "title",
       "article": "content",
       "label": "label"
     }
   },
-  "steps": [
-    {
-      "step": "normalize_whitespace",
-      "applied_to": [
-        "title",
-        "content"
+  "preprocessing": {
+    "variants": {
+      "A_light": [
+        "normalize_whitespace",
+        "remove_url",
+        "remove_html",
+        "remove_noise"
       ],
-      "params": {
-        "regex": "\\s+",
-        "replacement": " "
-      }
+      "B_normalized": [
+        "normalize_whitespace",
+        "remove_url",
+        "remove_html",
+        "remove_noise",
+        "lowercase",
+        "stopword_removal"
+      ]
     },
-    {
-      "step": "remove_url",
-      "applied_to": [
-        "title",
-        "content"
-      ],
-      "params": {
-        "pattern": "https?://|www\\."
-      }
-    },
-    {
-      "step": "remove_html",
-      "applied_to": [
-        "title",
-        "content"
-      ],
-      "params": {
-        "pattern": "<[^>]+>"
-      }
-    },
-    {
-      "step": "remove_noise",
-      "applied_to": [
-        "title",
-        "content"
-      ],
-      "params": {
-        "remove_email": true,
-        "keep_punctuation": ".,;:!?%$()-/+"
-      }
-    },
-    {
-      "step": "lowercase",
-      "applied_to": [
-        "title",
-        "content"
-      ],
-      "params": {}
-    },
-    {
-      "step": "stopword_removal",
-      "applied_to": [
-        "title",
-        "content"
-      ],
-      "params": {
-        "source": "Sastrawi"
-      }
-    }
-  ],
-  "variants": {
-    "A_light": [
-      "normalize_whitespace",
-      "remove_url",
-      "remove_html",
-      "remove_noise"
-    ],
-    "B_normalized": [
-      "normalize_whitespace",
-      "remove_url",
-      "remove_html",
-      "remove_noise",
-      "lowercase",
-      "stopword_removal"
+    "stopword_source": "Sastrawi",
+    "tokenization": "spacy.blank('id') — tokenizer only, no POS/dependency parser native for id",
+    "limitations": [
+      "spaCy blank('id') tidak punya POS tagger atau dependency parser native untuk Bahasa Indonesia",
+      "Fitur linguistik/relasi pakai heuristik regex + wordlist, bukan true NLP parsing"
     ]
   },
-  "eda_comparison_summary": [
-    {
-      "variant": "B: Normalized",
-      "metric": "headline_coverage",
-      "mean_Sesuai": 0.7851,
-      "mean_TidakSesuai": 0.7295,
-      "separation_gap": 0.0556,
-      "std_Sesuai": 0.1469,
-      "std_TidakSesuai": 0.1413,
-      "source": "lexical_overlap"
+  "features": {
+    "lsa_cosine_sim": {
+      "n_components": 100,
+      "source": "clean_b"
     },
+    "lexical_overlap": {
+      "metrics": [
+        "jaccard",
+        "overlap_coeff",
+        "dice"
+      ],
+      "variants": [
+        "clean_a",
+        "clean_b"
+      ]
+    }
+  },
+  "eda_comparison": [
     {
       "variant": "B: Normalized",
       "metric": "overlap_coeff",
       "mean_Sesuai": 0.7851,
       "mean_TidakSesuai": 0.7295,
       "separation_gap": 0.0556,
-      "std_Sesuai": 0.1469,
-      "std_TidakSesuai": 0.1413,
-      "source": "lexical_overlap"
-    },
-    {
-      "variant": "A: Light",
-      "metric": "headline_coverage",
-      "mean_Sesuai": 0.7957,
-      "mean_TidakSesuai": 0.7494,
-      "separation_gap": 0.0463,
-      "std_Sesuai": 0.1385,
-      "std_TidakSesuai": 0.1301,
       "source": "lexical_overlap"
     },
     {
@@ -125,19 +66,23 @@
       "mean_Sesuai": 0.7957,
       "mean_TidakSesuai": 0.7494,
       "separation_gap": 0.0463,
-      "std_Sesuai": 0.1385,
-      "std_TidakSesuai": 0.1301,
       "source": "lexical_overlap"
     },
     {
       "variant": "B: Normalized",
-      "metric": "lsa_cosine_sim",
-      "mean_Sesuai": 0.5609,
-      "mean_TidakSesuai": 0.5204,
-      "separation_gap": 0.0405,
-      "std_Sesuai": 0.204,
-      "std_TidakSesuai": 0.1996,
-      "source": "lsa_similarity"
+      "metric": "dice",
+      "mean_Sesuai": 0.1049,
+      "mean_TidakSesuai": 0.09,
+      "separation_gap": 0.0149,
+      "source": "lexical_overlap"
+    },
+    {
+      "variant": "A: Light",
+      "metric": "dice",
+      "mean_Sesuai": 0.0978,
+      "mean_TidakSesuai": 0.0859,
+      "separation_gap": 0.0118,
+      "source": "lexical_overlap"
     },
     {
       "variant": "B: Normalized",
@@ -145,8 +90,6 @@
       "mean_Sesuai": 0.056,
       "mean_TidakSesuai": 0.0476,
       "separation_gap": 0.0084,
-      "std_Sesuai": 0.0267,
-      "std_TidakSesuai": 0.0222,
       "source": "lexical_overlap"
     },
     {
@@ -155,25 +98,7 @@
       "mean_Sesuai": 0.0519,
       "mean_TidakSesuai": 0.0453,
       "separation_gap": 0.0066,
-      "std_Sesuai": 0.0242,
-      "std_TidakSesuai": 0.0207,
       "source": "lexical_overlap"
     }
-  ],
-  "libraries_used": [
-    "nltk (tokenization only — static resource, not pretrained)",
-    "Sastrawi (stopword list — rule-based, not pretrained)",
-    "sklearn (TF-IDF, CountVectorizer, SVD — from scratch)",
-    "wordcloud (visualization only)"
-  ],
-  "libraries_needed_pending_approval": [
-    "xgboost (untuk classifier di modeling session berikutnya)"
-  ],
-  "notes": {
-    "pretrained_models_used": "NONE — all representations trained from scratch on competition data",
-    "raw_text_preserved": true,
-    "column_mapping": "Auto-discovered from CSV, not hardcoded",
-    "outliers_handled": "Analyzed only, NOT removed",
-    "eda_purpose": "Comparison table is OUTPUT ANALYSIS — feature/variant selection decided by user after review"
-  }
+  ]
 }
