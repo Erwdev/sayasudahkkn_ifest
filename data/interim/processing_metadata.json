@@ -1,0 +1,42 @@
+{
+  "created_at": "2026-09-04T18:31:20.352092",
+  "source": "../data/raw/penyisihan-dac-ifest-2026/train.csv",
+  "total_rows": 14397,
+  "columns_processed": [
+    "title",
+    "content"
+  ],
+  "variants": {
+    "A_light": {
+      "file": "../data/interim\\train_clean_a.csv",
+      "steps": [
+        "normalize_whitespace",
+        "remove_url",
+        "remove_html",
+        "remove_noise"
+      ],
+      "headline_len_reduction_pct": 0.02,
+      "article_len_reduction_pct": 0.02,
+      "rows": 14397
+    },
+    "B_normalized": {
+      "file": "../data/interim\\train_clean_b.csv",
+      "steps": [
+        "normalize_whitespace",
+        "remove_url",
+        "remove_html",
+        "remove_noise",
+        "lowercase",
+        "stopword_removal"
+      ],
+      "headline_len_reduction_pct": 9.97,
+      "article_len_reduction_pct": 23.82,
+      "rows": 14397
+    },
+    "raw": {
+      "file": "../data/interim\\train_raw.csv",
+      "steps": [],
+      "rows": 14397
+    }
+  }
+}

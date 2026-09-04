@@ -6,11 +6,12 @@ scipy
 # Machine learning and text features
 scikit-learn
 joblib
+xgboost
 
 # NLP
 nltk
-spacy
 Sastrawi
+rank_bm25
 
 # Notebook and experiment utilities
 jupyter
@@ -20,3 +21,4 @@ tqdm
 # Exploration and visualization
 matplotlib
 seaborn
+wordcloud
