@@ -8,11 +8,12 @@ scikit-learn
 joblib
 xgboost
 lightgbm
+imblearn  # For SMOTE oversampling
+optuna    # For Bayesian hyperparameter optimization
 
 # NLP
 nltk
 Sastrawi
-rank_bm25
 spacy 
 
 # Notebook and experiment utilities
